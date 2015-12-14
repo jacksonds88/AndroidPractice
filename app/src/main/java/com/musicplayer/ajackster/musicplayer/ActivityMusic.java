@@ -23,6 +23,9 @@ public class ActivityMusic extends AppCompatActivity implements View.OnClickList
 
         Button bPlayMusic = (Button)findViewById(R.id.bPlayMusic);
         bPlayMusic.setOnClickListener(this);  // must implement View.OnClickListener to use "this" here
+
+        Button bStopMusic = (Button)findViewById(R.id.bStopMusic);
+        bStopMusic.setOnClickListener(this);  // must implement View.OnClickListener to use "this" here
     }
 
     // this method handles button clicks
