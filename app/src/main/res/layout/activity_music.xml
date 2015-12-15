@@ -13,11 +13,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Music Activity"
-        android:id="@+id/textView2"
+        android:text="Rock On!"
+        android:id="@+id/textTitle"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/button1"
-        android:layout_toStartOf="@+id/button1" />
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignStart="@+id/button1" />
 
     <Button
         android:layout_width="wrap_content"
@@ -30,19 +30,37 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play Music"
-        android:id="@+id/bPlayMusic"
-        android:layout_above="@+id/bStopMusic"
+        android:text="Stop"
+        android:id="@+id/bStopMusic"
+        android:layout_above="@+id/button1"
         android:layout_centerHorizontal="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stop Music"
-        android:id="@+id/bStopMusic"
-        android:layout_above="@+id/button1"
-        android:layout_alignLeft="@+id/bPlayMusic"
-        android:layout_alignStart="@+id/bPlayMusic" />
+        android:text="Next"
+        android:id="@+id/bNext"
+        android:layout_above="@+id/bStopMusic"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Previous"
+        android:id="@+id/bPrevious"
+        android:layout_above="@+id/bStopMusic"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:id="@+id/bStartMusic"
+        android:layout_above="@+id/bStopMusic"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
