@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ActivityMusic extends AppCompatActivity implements View.OnClickListener {
@@ -54,7 +55,6 @@ public class ActivityMusic extends AppCompatActivity implements View.OnClickList
                 mediaPlayer.start(); // no need to call prepare(); create() does that for you
                 tv = (TextView) findViewById(R.id.textTitle);
                 tv.setText(namesOfSongs[incrementSong]);
-                tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 break;
             }
             case R.id.bNext: {
@@ -65,7 +65,6 @@ public class ActivityMusic extends AppCompatActivity implements View.OnClickList
                     mediaPlayer.start();
                     tv = (TextView) findViewById(R.id.textTitle);
                     tv.setText(namesOfSongs[incrementSong]);
-                    tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 } else {
                     incrementSong++;
                     mediaPlayer.stop();
@@ -73,7 +72,6 @@ public class ActivityMusic extends AppCompatActivity implements View.OnClickList
                     mediaPlayer.start();
                     tv = (TextView) findViewById(R.id.textTitle);
                     tv.setText(namesOfSongs[incrementSong]);
-                    tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 }
                 break;
             }
@@ -85,7 +83,6 @@ public class ActivityMusic extends AppCompatActivity implements View.OnClickList
                     mediaPlayer.start();
                     tv = (TextView)findViewById(R.id.textTitle);
                     tv.setText(namesOfSongs[incrementSong]);
-                    tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 } else {
                     mediaPlayer.stop();
                     incrementSong--;
@@ -93,7 +90,6 @@ public class ActivityMusic extends AppCompatActivity implements View.OnClickList
                     mediaPlayer.start();
                     tv = (TextView)findViewById(R.id.textTitle);
                     tv.setText(namesOfSongs[incrementSong]);
-                    tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 }
                 break;
             }
@@ -104,7 +100,6 @@ public class ActivityMusic extends AppCompatActivity implements View.OnClickList
                     mediaPlayer = null;
                     tv = (TextView)findViewById(R.id.textTitle);
                     tv.setText("Music");
-                    tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                     break;
                 }
             }

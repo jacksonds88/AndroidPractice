@@ -16,8 +16,8 @@
         android:text="Rock On!"
         android:id="@+id/textTitle"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignStart="@+id/button1" />
+        android:layout_centerHorizontal="true"
+        />
 
     <Button
         android:layout_width="wrap_content"
