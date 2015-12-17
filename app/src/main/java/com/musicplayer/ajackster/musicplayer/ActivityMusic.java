@@ -1,13 +1,11 @@
 package com.musicplayer.ajackster.musicplayer;
 
 import android.content.Intent;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ActivityMusic extends AppCompatActivity implements View.OnClickListener {
@@ -16,9 +14,8 @@ public class ActivityMusic extends AppCompatActivity implements View.OnClickList
     // http://developer.android.com/guide/topics/media/mediaplayer.html
     private MediaPlayer mediaPlayer = null;
     private TextView tv;
-    private int [] songs = {R.raw.tuesday, R.raw.whatdoyoumean, R.raw.everybody};
-    private String [] namesOfSongs = {"Tuesday", "What Do You Mean", "Everybody"};
-    private int incrementSong = 0;
+    private Song[] songs;
+    private int songIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +36,43 @@ public class ActivityMusic extends AppCompatActivity implements View.OnClickList
 
         Button bStopMusic = (Button) findViewById(R.id.bStopMusic);
         bStopMusic.setOnClickListener(this);
+
+        songs = initializeSongs();
+    }
+
+    // returns an array of songs
+    private Song[] initializeSongs()
+    {
+        Song[] songs = new Song[3];
+        songs[0] = new Song("Tuesday", R.raw.tuesday, -1);
+        songs[1] = new Song("What Do You Mean", R.raw.whatdoyoumean, -1);
+        songs[2] = new Song("Everybody", R.raw.everybody, -1);
+        return songs;
+    }
+
+    private void startMusic(int i)
+    {
+        mediaPlayer = MediaPlayer.create(this, songs[i].getAudioFile());
+        mediaPlayer.start();
+        tv = (TextView) findViewById(R.id.textTitle);
+        tv.setText(songs[i].getTitle());
+    }
+
+    private int nonNegativeModulus(int x, int n)
+    {
+        int r = x % n;
+        if (r < 0)
+            r += n;
+        return r;
+    }
+
+    private void stopMusic()
+    {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     public void onClick(View v) {
@@ -51,57 +85,30 @@ public class ActivityMusic extends AppCompatActivity implements View.OnClickList
             }
 
             case R.id.bStartMusic: {
-                mediaPlayer = MediaPlayer.create(this, songs[incrementSong]);
-                mediaPlayer.start(); // no need to call prepare(); create() does that for you
-                tv = (TextView) findViewById(R.id.textTitle);
-                tv.setText(namesOfSongs[incrementSong]);
+                startMusic(songIndex);
                 break;
             }
             case R.id.bNext: {
-                if (incrementSong >= 2) {
-                    incrementSong = 0;
-                    mediaPlayer.stop();
-                    mediaPlayer = MediaPlayer.create(this, songs[incrementSong]);
-                    mediaPlayer.start();
-                    tv = (TextView) findViewById(R.id.textTitle);
-                    tv.setText(namesOfSongs[incrementSong]);
-                } else {
-                    incrementSong++;
-                    mediaPlayer.stop();
-                    mediaPlayer = MediaPlayer.create(this, songs[incrementSong]);
-                    mediaPlayer.start();
-                    tv = (TextView) findViewById(R.id.textTitle);
-                    tv.setText(namesOfSongs[incrementSong]);
-                }
+                stopMusic();
+                songIndex++;
+                songIndex %= songs.length;
+                startMusic(songIndex);
+
                 break;
             }
             case R.id.bPrevious: {
-                if (incrementSong <= 0) {
-                    incrementSong = 2;
-                    mediaPlayer.stop();
-                    mediaPlayer = MediaPlayer.create(this, songs[2]);
-                    mediaPlayer.start();
-                    tv = (TextView)findViewById(R.id.textTitle);
-                    tv.setText(namesOfSongs[incrementSong]);
-                } else {
-                    mediaPlayer.stop();
-                    incrementSong--;
-                    mediaPlayer = MediaPlayer.create(this, songs[incrementSong]);
-                    mediaPlayer.start();
-                    tv = (TextView)findViewById(R.id.textTitle);
-                    tv.setText(namesOfSongs[incrementSong]);
-                }
+                stopMusic();
+                songIndex--;
+                songIndex = nonNegativeModulus(songIndex, songs.length);
+                startMusic(songIndex);
+
                 break;
             }
             case R.id.bStopMusic: {
-                if (mediaPlayer != null) {
-                    mediaPlayer.stop();
-                    mediaPlayer.release();
-                    mediaPlayer = null;
-                    tv = (TextView)findViewById(R.id.textTitle);
-                    tv.setText("Music");
-                    break;
-                }
+                stopMusic();
+                tv = (TextView)findViewById(R.id.textTitle);
+                tv.setText("None");
+                break;
             }
         }
     }
